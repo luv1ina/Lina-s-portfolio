@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lina BENCHRIF - Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700&family=Kiwi+Maru:wght@300;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Zen Maru Gothic"', 'sans-serif'],
+                        serif: ['"Kiwi Maru"', 'serif'],
+                    },
+                    colors: {
+                        ghibli: {
+                            paper: 'rgba(26, 28, 44, 0.7)', // Dark semi-transparent
+                            cream: '#E6D5B8',
+                            brown: '#D4A373',
+                            dark: '#E6D5B8',
+                            green: '#5b8c5a',
+                            red: '#C64F4F',
+                            bread: '#E6A863',
+                            nero: '#220E0E',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --bg-color: #1a1c2c; /* Midnight Navy */
+            --text-color: #E6D5B8;
+            --overlay-color: rgb(0, 0, 0);
+            --lantern-opacity: 0;
+        }
+
+        body {
+             background-color: var(--bg-color);
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23d4a373' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+            color: var(--text-color);
+            transition: background-color 2s, color 2s;
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        /* Matrix Canvas - Stays behind everything */
+        #matrix {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        /* Lantern Glow (Active at Night) */
+        #lantern-glow {
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255, 160, 60, 0.3) 0%, rgba(0, 0, 0, 0) 70%);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 9990;
+            opacity: var(--lantern-opacity);
+            transition: opacity 2s;
+            mix-blend-mode: screen;
+        }
+
+        /* Firefly (Night Gimmick) */
+        .firefly {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: #FFD700;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99;
+            box-shadow: 0 0 8px #FFD700, 0 0 16px #FF8C00;
+            animation: fly 5s infinite ease-in-out alternate;
+            opacity: 0;
+        }
+
+        @keyframes fly {
+            0% {
+                transform: translate(0, 0);
+                opacity: 0;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translate(var(--fx), var(--fy));
+                opacity: 0;
+            }
+        }
+
+        /* Night Mode Overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--overlay-color);
+            pointer-events: none;
+            z-index: 5;
+            transition: background 2s;
+        }
+
+        /* Lantern Glow (Active at Night) */
+        #lantern-glow {
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255, 160, 60, 0.3) 0%, rgba(0, 0, 0, 0) 70%);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 9990;
+            opacity: var(--lantern-opacity);
+            transition: opacity 2s;
+            mix-blend-mode: screen;
+        }
+
+        /* Firefly (Night Gimmick) */
+        .firefly {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: #FFD700;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99;
+            box-shadow: 0 0 8px #FFD700, 0 0 16px #FF8C00;
+            animation: fly 5s infinite ease-in-out alternate;
+            opacity: 0;
+        }
+
+        @keyframes fly {
+            0% {
+                transform: translate(0, 0);
+                opacity: 0;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translate(var(--fx), var(--fy));
+                opacity: 0;
+            }
+        }
+
+        /* Soot Sprite Cursor */
+        #cursor-follower {
+            position: fixed;
+            width: 24px;
+            height: 24px;
+            background: #E6D5B8;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: width 0.2s, height 0.2s;
+            filter: blur(0.5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Eyes */
+        #cursor-follower::before,
+        #cursor-follower::after {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 6px;
+        }
+
+        #cursor-follower::before {
+            left: 5px;
+        }
+
+        #cursor-follower::after {
+            right: 5px;
+        }
+
+        /* Little ones following */
+        .soot-sprite {
+            position: fixed;
+            background: #2D2D2D;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            opacity: 0.8;
+            animation: scurry 1s forwards;
+            filter: blur(1px);
+        }
+
+        .soot-sprite::before,
+        .soot-sprite::after {
+            content: '';
+            width: 20%;
+            height: 20%;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 25%;
+        }
+
+        .soot-sprite::before {
+            left: 25%;
+        }
+
+        .soot-sprite::after {
+            right: 25%;
+        }
+
+
+
+        /* Konpeito (Star Candy) */
+        .konpeito {
+            position: fixed;
+            pointer-events: none;
+            z-index: 10000;
+            font-size: 20px;
+            animation: fall 1s forwards cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translate(var(--dx), var(--dy)) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Scroll Progress Cat */
+        #scroll-cat {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: #E6A863;
+            z-index: 9999;
+            transition: width 0.1s;
+        }
+
+        #scroll-cat::after {
+            content: '🐈';
+            position: absolute;
+            right: -10px;
+            top: -8px;
+            font-size: 20px;
+            transform: scaleX(-1);
+            /* Face right */
+        }
+
+        @keyframes scurry {
+            0% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: scale(0) translate(var(--mx), var(--my));
+                opacity: 0;
+            }
+        }
+
+        /* Paper Card Style */
+        .paper-card {
+            background: #FFF;
+            border-radius: 8px;
+            /* Rough edges simulated by simplicity */
+            box-shadow:
+                0 1px 2px rgba(0, 0, 0, 0.07),
+                0 2px 4px rgba(0, 0, 0, 0.07),
+                0 4px 8px rgba(0, 0, 0, 0.07),
+                0 8px 16px rgba(0, 0, 0, 0.07),
+                0 16px 32px rgba(0, 0, 0, 0.07),
+                0 32px 64px rgba(0, 0, 0, 0.07);
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Windy Leaves */
+        .leaf {
+            position: fixed;
+            top: -50px;
+            width: 20px;
+            height: 20px;
+            background: rgba(74, 103, 65, 0.6);
+            /* Greenish */
+            border-radius: 20px 0px;
+            pointer-events: none;
+            z-index: 1;
+            /* Behind content */
+            animation: fallLeaf linear forwards;
+        }
+
+        @keyframes fallLeaf {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: translate(100vw, 100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Sunbeam Dust */
+        .dust-mote {
+            position: fixed;
+            background: rgba(255, 255, 230, 0.8);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 2;
+            box-shadow: 0 0 4px rgba(255, 255, 255, 0.8);
+            animation: floatDust linear infinite;
+        }
+
+        @keyframes floatDust {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+
+            50% {
+                opacity: 0.6;
+            }
+
+            100% {
+                transform: translateY(-100px) translateX(50px);
+                opacity: 0;
+            }
+        }
+
+        /* Interactive Elements: Jelly Bounce */
+        .jelly-hover:hover {
+            animation: jelly 0.5s;
+        }
+
+        @keyframes jelly {
+
+            0%,
+            100% {
+                transform: scale(1, 1);
+            }
+
+            25% {
+                transform: scale(0.9, 1.1);
+            }
+
+            50% {
+                transform: scale(1.1, 0.9);
+            }
+
+            75% {
+                transform: scale(0.95, 1.05);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Lantern Glow -->
+    <div id="lantern-glow"></div>
+    <!-- Cursor -->
+    <div id="cursor-follower"></div>
+    <!-- Scroll Cat -->
+    <div id="scroll-cat"></div>
+    <canvas id="matrix"></canvas>
+    <div id="cursor-follower"></div>
+    <div id="scroll-cat"></div>
+
+    <div class="content-wrapper">
+        <header class="fixed w-full z-50 top-0 left-0 p-4">
+            <div class="max-w-6xl mx-auto flex justify-between items-center bg-[#1a1c2c]/80 backdrop-blur-md rounded-full shadow-lg py-3 px-8 border border-white/10">
+                <div class="flex items-center gap-3">
+                    <i class="fas fa-bread-slice text-ghibli-brown text-2xl animate-bounce-ghibli"></i>
+                    <h1 class="font-serif font-bold text-xl text-ghibli-cream tracking-widest">Lina BENCHRIF</h1>
+                </div>
+                <nav class="hidden md:flex gap-6 font-sans text-sm font-bold text-ghibli-cream/80">
+                    <a href="#about" class="hover:text-ghibli-bread transition">About me</a>
+                    <a href="#projects" class="hover:text-ghibli-bread transition">projects</a>
+                    <a href="#contact" class="hover:text-ghibli-bread transition">Contact</a>
+                </nav>
+                <a href="https://www.instagram.com/bdivine_e?igsh=MXR5b2VpMjJ0cngxMw==" target="_blank" class="bg-ghibli-green text-white w-10 h-10 rounded-full flex items-center justify-center hover:scale-110 transition shadow-lg">
+                    <i class="fab fa-instagram"></i>
+                </a>
+            </div>
+        </header>
+
+        <section class="min-h-screen pt-24 pb-12 flex flex-col items-center justify-center relative">
+            <!-- Background Elements (Parallax Clouds) -->
+            <div class="absolute top-20 left-10 opacity-30 animate-float" style="animation-duration: 8s;">
+               <i class="fas fa-cloud text-6xl text-white"></i>
+            </div>
+            <div class="absolute top-40 right-20 opacity-40 animate-float" style="animation-duration: 12s;">
+                <i class="fas fa-cloud text-8xl text-white"></i>
+            </div>
+             <div class="max-w-4xl mx-auto text-center px-4 z-10"></div>
+                <div class="relative inline-block mb-8">
+                   <div class="relative inline-block mb-8">
+                <div class="absolute -top-10 -right-10 text-ghibli-bread animate-float">
+                    <i class="fas fa-star text-2xl"></i>
+                </div>
+                <h2 class="font-serif text-4xl md:text-6xl text-ghibli-cream leading-relaxed mb-8">
+                    Projects fueled by<br>
+                    <span class="inline-block transform -rotate-2 bg-ghibli-green text-white px-4 py-1 mx-2 rounded-sm shadow-md">curiosity</span>not deadlines
+                </h2>
+            </div>
+
+            <p class="font-sans text-lg text-ghibli-brown/90 mb-12 max-w-2xl mx-auto leading-loose paper-card p-6">
+                    HEYOO!! I'm Lina BENCHRIF , 16 y/o systems dweller & builder.<br>
+                 - Deep into hardware, game-dev, web-dev and graphic design :3 <br>
+                 - I'm into anything artsy; from painting, writing, music, crochet... you name it! <br>
+                </p>
+
+            <!-- Main Visual -->
+            <div
+                class="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-3xl mx-auto transform rotate-1 hover:rotate-0 transition duration-700">
+                <!-- Image 1 -->
+                <div
+                    class="paper-card p-2 transform rotate-2 hover:scale-105 transition duration-500 cursor-pointer jelly-hover">
+                    <div class="overflow-hidden rounded h-48 relative">
+                        <img src="./materials/4.jpeg" class="w-full h-full object-cover">
+                        <div
+                            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white text-opacity-0 hover:text-opacity-100 transition duration-300 pointer-events-none">
+                            <i class="fas fa-steam text-4xl animate-steam"></i>
+                        </div>
+                    </div>
+                </div>
+                <!-- Image 2 (Central) -->
+                <div
+                    class="paper-card p-2 transform -rotate-2 scale-110 z-10 hover:scale-115 transition duration-500 cursor-pointer jelly-hover">
+                    <div class="overflow-hidden rounded h-56 relative">
+                        <img src="./materials/3.jpeg" class="w-full h-full object-cover">
+                        <div class="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/50 to-transparent">
+                        </div>
+                        
+                    </div>
+                </div>
+                <!-- Image 3 -->
+                <div
+                    class="paper-card p-2 transform rotate-1 md:mt-8 hover:scale-105 transition duration-500 cursor-pointer jelly-hover">
+                    <div class="overflow-hidden rounded h-48">
+                        <img src="./materials/8.jpeg" class="w-full h-full object-cover">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Profile Section -->
+   <section id="about" class="py-20 bg-white/30 backdrop-blur-md relative"> 
+     <div class="absolute top-0 left-0 w-full overflow-hidden leading-none transform -translate-y-full">
+         <svg class="relative block w-full h-[50px]" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg"
+             viewBox="0 0 1200 120" preserveAspectRatio="none">
+             <path
+                 d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
+              class="fill-white/30"></path> </svg>
+      </div>
+
+     <div class="max-w-2xl mx-auto px-4 text-center">
+        <div class="w-32 h-32 mx-auto rounded-full border-4 border-ghibli-bread overflow-hidden mb-6 paper-card jelly-hover">
+            <img src="./materials/6.jpeg" class="w-full h-full object-cover">
+        </div>
+
+        <h2 class="font-serif text-3xl font-bold mb-2 text-ghibli-dark">Lina BENCHRIF</h2>
+        
+        <div class="flex items-center justify-center gap-2 mb-6 text-ghibli-green font-bold bg-white/50 backdrop-blur-sm inline-block px-4 py-1 rounded-full shadow-inner border border-white/20">
+            <span>@luv1ina</span>
+            <button onclick="navigator.clipboard.writeText('luv1ina'); alert('GitHub ID copied!')"
+                class="hover:text-ghibli-brown transition">
+                <i class="far fa-copy"></i>
+            </button>
+        </div>
+
+      <div class="font-sans text-ghibli-nero bg-white/40 backdrop-blur-lg p-8 rounded-2xl shadow-sm border border-white/20 relative">
+              <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-32 h-8 bg-[#E6D5B8] opacity-60 transform -rotate-1 shadow-sm">
+              </div>
+
+              <div class="flex items-center mb-4">
+                  <span class="text-amber-400">[</span>
+                  <span class="px-1">luv1ina</span>
+                  <span class="text-amber-400">~</span>
+                  <span class="text-amber-400">]</span>
+                  <span class="text-amber-400">$</span>
+                  <span class="ml-2">
+                    <span class="typewriter">./welcome.sh</span>
+                     <span class="typing-complete"></span>
+                  </span>
+             </div>
+
+            <div class="mb-4 text-left">
+             <p class="mb-2 text-ghibli-green/90">#!/bin/bash</p>
+             <p class="mb-2">echo "Yo. I build dumb/useful things."</p>
+             <p class="mb-2">echo "Currently typing on a ThinkPad that survived 3 coffee spills."</p>
+             <p class="mb-2">echo "I also do graphic design, music production, and digital art!"</p>
+             <p class="mb-2">echo "Status: Probably debugging something trivial 🐈⸒⸒⸒⸒"</p>
+           </div>
+        
+
+             <div class="max-w-4xl mx-auto px-4 py-8">
+        <div class="bg-white/20 backdrop-blur-md border border-white/10 p-6 rounded-2xl shadow-xl">
+        
+          <h3 class="font-mono text-ghibli-green text-sm mb-6 uppercase tracking-widest flex items-center border-l-4 border-ghibli-bread pl-3">
+             <span class="mr-2 text-amber-400">$</span> TECH STACK.log
+         </h3>
+        
+         <div class="flex flex-wrap gap-3 justify-start items-center">
+             <img src="https://img.shields.io/badge/c-%2300599C.svg?style=for-the-badge&logo=c&logoColor=white" alt="C">
+             <img src="https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white" alt="Java">
+             <img src="https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E" alt="JavaScript">
+             <img src="https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54" alt="Python">
+            
+             <img src="https://img.shields.io/badge/adobe-%23FF0000.svg?style=for-the-badge&logo=adobe&logoColor=white" alt="Adobe">
+             <img src="https://img.shields.io/badge/Aseprite-FFFFFF?style=for-the-badge&logo=Aseprite&logoColor=#7D929E" alt="Aseprite">
+             <img src="https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white" alt="Figma">
+             <img src="https://img.shields.io/badge/Sketch-FFB387?style=for-the-badge&logo=sketch&logoColor=black" alt="Sketch">
+             <img src="https://img.shields.io/badge/Canva-%2300C4CC.svg?style=for-the-badge&logo=Canva&logoColor=white" alt="Canva">
+             <img src="https://img.shields.io/badge/blender-%23F5792A.svg?style=for-the-badge&logo=blender&logoColor=white" alt="Blender">
+            
+             <img src="https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white" alt="GitHub">
+             <img src="https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white" alt="Git">
+             <img src="https://img.shields.io/badge/Itch-%23FF0B34.svg?style=for-the-badge&logo=Itch.io&logoColor=white" alt="Itch.io">
+             <img src="https://img.shields.io/badge/steam-%23000000.svg?style=for-the-badge&logo=steam&logoColor=white" alt="Steam">
+            
+             <img src="https://img.shields.io/badge/GODOT-%23FFFFFF.svg?style=for-the-badge&logo=godot-engine" alt="Godot">
+             <img src="https://img.shields.io/badge/unity-%23000000.svg?style=for-the-badge&logo=unity&logoColor=white" alt="Unity">
+             <img src="https://img.shields.io/badge/sqlite-%2307405e.svg?style=for-the-badge&logo=sqlite&logoColor=white" alt="SQLite">
+            
+             <img src="https://img.shields.io/badge/-Raspberry_Pi-C51A4A?style=for-the-badge&logo=Raspberry-Pi" alt="Raspberry Pi">
+             <img src="https://img.shields.io/badge/Notion-%23000000.svg?style=for-the-badge&logo=notion&logoColor=white" alt="Notion">
+             <img src="https://img.shields.io/badge/-Arduino-00979D?style=for-the-badge&logo=Arduino&logoColor=white" alt="Arduino">
+            
+             <img src="https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white" alt="HTML5">
+             <img src="https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white" alt="NodeJS">
+             <img src="https://img.shields.io/badge/vue.js-%2335495e.svg?style=for-the-badge&logo=vuedotjs&logoColor=%234FC08D" alt="Vue.js">
+             <img src="https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white" alt="CSS3">
+             <img src="https://img.shields.io/badge/firebase-%23039BE5.svg?style=for-the-badge&logo=firebase" alt="Firebase">
+             <img src="https://img.shields.io/badge/mysql-4479A1.svg?style=for-the-badge&logo=mysql&logoColor=white" alt="MySQL">
+             <img src="https://img.shields.io/badge/sqlite-%2307405e.svg?style=for-the-badge&logo=sqlite&logoColor=white" alt="SQLite">
+         </div>
+     </div>
+     <a href="#contact"
+                    class="text-xs text-ghibli-brown border-b border-ghibli-brown pb-1 hover:text-ghibli-red transition">
+                    Wanna collab or just say hi? Feel free to DM me!
+                </a>
+ </div>
+     
+</section>
+
+<body>
+  <!--Projects hehee-->
+  <section id="projects" class="py-16">
+        <div class="text-center mb-16">
+            <span class="text-amber-400">[</span>
+            <span class="px-1 text-ghibli-cream">luv1ina</span>
+            <span class="text-amber-400">~/projects</span>
+            <span class="text-amber-400">]</span>
+            <span class="text-amber-400">$</span>
+            <span class="ml-2 text-white animate-pulse">ls -la</span>
+            <h2 class="font-serif text-4xl text-ghibli-dark">my completed lil projects</h2>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="group border border-ghibli-green/30 bg-white/20 backdrop-blur-md p-6 rounded-xl hover:bg-ghibli-green hover:border-ghibli-green transition-all duration-300 transform hover:-translate-y-1 shadow-lg">
+                <h3 class="text-xl font-bold mb-2 text-ghibli-cream group-hover:text-black transition-colors">Bac Grade Calculator</h3>
+                <p class="mb-4 text-ghibli-cream/80 group-hover:text-black/80 transition-colors">Math is pain, so I made a free Bac Calc to predict your grades.</p>
+                <a href="https://luv1ina.github.io/Bac-Calculator/" class="font-mono text-amber-400 text-sm block group-hover:text-black font-bold">
+                    <span class="opacity-50">$</span> open https://luv1ina.github.io/Bac-Calculator/
+                </a>
+            </div>
+            
+            <div class="group border border-ghibli-green/30 bg-white/20 backdrop-blur-md p-6 rounded-xl hover:bg-ghibli-green hover:border-ghibli-green transition-all duration-300 transform hover:-translate-y-1 shadow-lg">
+                <h3 class="text-xl font-bold mb-2 text-ghibli-cream group-hover:text-black transition-colors">MoMovie</h3>
+                <p class="mb-4 text-ghibli-cream/80 group-hover:text-black/80 transition-colors">A movie website that I made in my free time from a Ytb vid to learn more abt web-dev :3</p>
+                <a href="https://luv1ina.github.io/MoMovie/" class="font-mono text-amber-400 text-sm block group-hover:text-black font-bold">
+                    <span class="opacity-50">$</span> open https://luv1ina.github.io/MoMovie/
+                </a>
+            </div>
+            
+            <div class="group border border-ghibli-green/30 bg-white/20 backdrop-blur-md p-6 rounded-xl hover:bg-ghibli-green hover:border-ghibli-green transition-all duration-300 transform hover:-translate-y-1 shadow-lg">
+                <h3 class="text-xl font-bold mb-2 text-ghibli-cream group-hover:text-black transition-colors">Solar system</h3>
+                <p class="mb-4 text-ghibli-cream/80 group-hover:text-black/80 transition-colors">This website provides a realistic representation of the solar system, featuring a starry background, and allows users to navigate and observe the planets in a simulated space environment.</p>
+                <a href="https://luv1ina.github.io/Solar-System/" class="font-mono text-amber-400 text-sm block group-hover:text-black font-bold">
+                    <span class="opacity-50">$</span> open https://luv1ina.github.io/Solar-System/
+                </a>
+            </div>
+            
+            <div class="group border border-ghibli-green/30 bg-white/20 backdrop-blur-md p-6 rounded-xl hover:bg-ghibli-green hover:border-ghibli-green transition-all duration-300 transform hover:-translate-y-1 shadow-lg">
+                <h3 class="text-xl font-bold mb-2 text-ghibli-cream group-hover:text-black transition-colors">Korean Cafe Menu</h3>
+                <p class="mb-4 text-ghibli-cream/80 group-hover:text-black/80 transition-colors">Built a fake cafe website because I was hungry and bored.</p>
+                <a href="https://luv1ina.github.io/Korean-caf-menu/" class="font-mono text-amber-400 text-sm block group-hover:text-black font-bold">
+                    <span class="opacity-50">$</span> open https://luv1ina.github.io/Korean-caf-menu/
+                </a>
+            </div>
+            
+            <div class="group border border-ghibli-green/30 bg-white/20 backdrop-blur-md p-6 rounded-xl hover:bg-ghibli-green hover:border-ghibli-green transition-all duration-300 transform hover:-translate-y-1 shadow-lg">
+                <h3 class="text-xl font-bold mb-2 text-ghibli-cream group-hover:text-black transition-colors">Loosing my marbles</h3>
+                <p class="mb-4 text-ghibli-cream/80 group-hover:text-black/80 transition-colors">Coding this was an accurate marble-losing experience for my brain.</p>
+                <a href="https://luv1ina.github.io/Loosing-my-marbles/" class="font-mono text-amber-400 text-sm block group-hover:text-black font-bold">
+                    <span class="opacity-50">$</span> open https://luv1ina.github.io/Loosing-my-marbles/
+                </a>
+            </div>
+            
+            <div class="group border border-ghibli-green/30 bg-white/20 backdrop-blur-md p-6 rounded-xl hover:bg-ghibli-green hover:border-ghibli-green transition-all duration-300 transform hover:-translate-y-1 shadow-lg">
+                <h3 class="text-xl font-bold mb-2 text-ghibli-cream group-hover:text-black transition-colors">Morse code encrypter</h3>
+                <p class="mb-4 text-ghibli-cream/80 group-hover:text-black/80 transition-colors">No ads, no trackers, justA simple to use morse code encrypter /decrypter :3</p>
+                <a href="https://luv1ina.github.io/Morse-code-encrypter/" class="font-mono text-amber-400 text-sm block group-hover:text-black font-bold">
+                    <span class="opacity-50">$</span> open https://luv1ina.github.io/Morse-code-encrypter/
+                </a>
+            </div>
+
+            <div class="group border border-ghibli-green/30 bg-white/20 backdrop-blur-md p-6 rounded-xl hover:bg-ghibli-green hover:border-ghibli-green transition-all duration-300 transform hover:-translate-y-1 shadow-lg">
+                <h3 class="text-xl font-bold mb-2 text-ghibli-cream group-hover:text-black transition-colors">Tree & Treatz</h3>
+                <p class="mb-4 text-ghibli-cream/80 group-hover:text-black/80 transition-colors">Basically a christmas themed game, where u decorate the tree to receive gifts which you can add to your collection :p (for my milkyway submission)</p>
+                <p class="font-mono text-amber-400 text-sm block group-hover:text-black font-bold">P.S: Still on-going but you can still check my git @luv1ina for the source code</p>
+            </div>
+
+            <div class="group border border-ghibli-green/30 bg-white/20 backdrop-blur-md p-6 rounded-xl hover:bg-ghibli-green hover:border-ghibli-green transition-all duration-300 transform hover:-translate-y-1 shadow-lg">
+                <h3 class="text-xl font-bold mb-2 text-ghibli-cream group-hover:text-black transition-colors">NanoLootz</h3>
+                <p class="mb-4 text-ghibli-cream/80 group-hover:text-black/80 transition-colors">3d-plateformer game, futuristic, sci-fi themes and it's actually my first 3d game ever (for my milkyway submission)</p>
+                <p class="font-mono text-amber-400 text-sm block group-hover:text-black font-bold">P.S: Still on-going but you can still check my git @luv1ina for the source code</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="min-h-screen py-20 relative z-10">
+     <div class="max-w-4xl mx-auto px-4">
+         <div class="bg-black/40 backdrop-blur-xl border border-white/10 rounded-lg overflow-hidden shadow-2xl">
+             <div class="bg-white/10 px-4 py-2 flex items-center justify-between border-b border-white/10">
+                 <div class="flex gap-1.5">
+                     <div class="w-3 h-3 rounded-full bg-red-500/50"></div>
+                     <div class="w-3 h-3 rounded-full bg-amber-500/50"></div>
+                     <div class="w-3 h-3 rounded-full bg-green-500/50"></div>
+                 </div>
+                 <span class="text-[10px] uppercase tracking-widest text-ghibli-cream/40 font-mono">bash — 80x24</span>
+             </div>
+
+             <div class="p-6 font-mono text-sm md:text-base">
+                 <div class="flex items-center mb-6">
+                     <span class="text-amber-400">[</span>
+                     <span class="px-1 text-ghibli-cream">luv1ina</span>
+                     <span class="text-amber-400">~/contact</span>
+                     <span class="text-amber-400">]</span>
+                     <span class="text-amber-400">$</span>
+                     <span class="ml-2 text-white animate-pulse">./connect.sh</span>
+                 </div>
+
+                 <div class="space-y-2 mb-8 text-ghibli-green/90">
+                     <p>#!/bin/bash</p>
+                     <p>echo "Hit me up through these channels:"</p>
+                     <p>echo "--------------------------------"</p>
+                 </div>
+ 
+                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+                     <div class="bg-white/5 border border-ghibli-green/30 p-4 rounded hover:bg-ghibli-green/10 transition-colors group">
+                         <h3 class="text-ghibli-bread text-xs mb-1 uppercase tracking-tighter">Email</h3>
+                         <p class="text-ghibli-cream break-all select-all cursor-pointer">linben253@gmail.com</p>
+                     </div>
+                     <div class="bg-white/5 border border-ghibli-green/30 p-4 rounded hover:bg-ghibli-green/10 transition-colors">
+                         <h3 class="text-ghibli-bread text-xs mb-1 uppercase tracking-tighter">Instagram</h3>
+                          <a href="https://www.instagram.com/bdivine_e?igsh=MXR5b2VpMjJ0cngxMw==" target="_blank" class="text-ghibli-cream hover:text-amber-400 transition-colors">@bdivine_e</a>
+                     </div>
+                 </div>
+ 
+                 <p class="text-ghibli-green/90 mb-4">echo "Alternative contact methods:"</p>
+                 
+                 <div class="bg-white/5 border border-white/10 p-4 mb-6 rounded text-ghibli-cream/70">
+                     <h3 class="text-xl mb-2 text-ghibli-cream">Carrier Pigeon 🐈‍⬛</h3>
+                     <p class="text-sm">1. Attach USB to cat/pigeon leg</p>
+                     <p class="text-sm">2. Encrypt message with magic (or PGP)</p>
+                     <p class="text-[10px] mt-2 opacity-50 italic">(Actually don't, my ThinkPad might not survive another animal incident)</p>
+                     
+                     <button onclick="document.getElementById('pgp-key').classList.toggle('hidden')" 
+                             class="mt-4 text-amber-400 hover:text-ghibli-green text-xs border border-amber-400/30 px-2 py-1 rounded transition-all">
+                         [Show fake PGP key]
+                     </button>
+                     
+                     <div id="pgp-key" class="hidden mt-4 bg-black/40 p-3 rounded text-[10px] overflow-x-auto border border-white/5 text-ghibli-green/60">
+                         <pre>-----BEGIN PGP PUBLIC KEY BLOCK-----
+xjMEZJNfXRYJKwYBBAHaRw8BAQdA8QJ9Jz7Gm4J5J4mZ6v7XJ6Kc7hX1
+... [magic bread encryption] ...
+=2k4l
+-----END PGP PUBLIC KEY BLOCK-----</pre>
+                     </div>
+                 </div>
+ 
+                 <div class="flex items-center">
+                     <span class="text-amber-400">[</span>
+                     <span class="px-1 text-ghibli-cream">luv1ina</span>
+                     <span class="text-amber-400">~/contact</span>
+                     <span class="text-amber-400">]</span>
+                     <span class="text-amber-400">$</span>
+                     <span class="ml-2 w-2 h-5 bg-amber-400 animate-pulse"></span>
+                 </div>
+             </div>
+         </div>
+     </div>
+   </section>
+  
+   <footer class="bg-[#1a1c2c]/90 text-ghibli-cream py-12 text-center border-t border-white/5">
+        <div class="max-w-2xl mx-auto px-4">
+            <h3 class="font-serif text-2xl mb-4">Contact</h3>
+            <p class="mb-6 font-sans text-sm">
+                If you want to reach out for collaborations, questions, or just to say hi, feel free to connect with me on Instagram or shoot me an email!
+            </p>
+            <a href="https://www.instagram.com/techtitans.fll?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank"
+                class="text-3xl hover:text-ghibli-green transition jelly-hover">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <div class="mt-8 text-xs opacity-60">
+                &copy; 2026 Lina BENCHRIF. All Rights Reserved.
+            </div>
+        </div>
+    </footer>     
+
+        
+
+    <script>
+        // --- Matrix Logic ---
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        const katakana = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプ';
+        const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        const nums = '0123456789';
+        const alphabet = katakana + latin + nums;
+
+        const fontSize = 16;
+        const columns = canvas.width / fontSize;
+        const rainDrops = Array.from({ length: columns }).fill(1);
+
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(26, 28, 44, 0.1)'; // Matches Navy Background
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.font = fontSize + 'px monospace';
+
+            for (let i = 0; i < rainDrops.length; i++) {
+                const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+                // Randomly alternate between forest green and cream highlights
+                ctx.fillStyle = Math.random() > 0.98 ? '#E6D5B8' : '#5b8c5a'; 
+                
+                ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
+
+                if (rainDrops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    rainDrops[i] = 0;
+                }
+                rainDrops[i]++;
+            }
+        }
+        setInterval(drawMatrix, 35);
+
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('scroll-cat').style.width = scrolled + '%';
+        });
+    </script>
+
+     <!-- Ghibli Logic -->
+    <script>
+        const cursor = document.getElementById('cursor-follower');
+
+        document.addEventListener('mousemove', (e) => {
+            const x = e.clientX;
+            const y = e.clientY;
+
+            // Move main cursor
+            cursor.style.left = `${x}px`;
+            cursor.style.top = `${y}px`;
+
+            // Move Lantern
+            const lantern = document.getElementById('lantern-glow');
+            if (lantern) {
+                lantern.style.left = `${x}px`;
+                lantern.style.top = `${y}px`;
+            }
+
+            // Randomly spawn soot sprites
+            if (Math.random() < 0.05) {
+                spawnSoot(x, y);
+            }
+        });
+
+        document.addEventListener('click', (e) => {
+            spawnKonpeito(e.clientX, e.clientY);
+        });
+
+        // Scroll Cat Logic
+        window.addEventListener('scroll', () => {
+            const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrollPercent = (scrollTop / scrollHeight) * 100;
+            const cat = document.getElementById('scroll-cat');
+            if (cat) cat.style.width = scrollPercent + '%';
+        });
+
+        function spawnKonpeito(x, y) {
+            const colors = ['#FFD1DC', '#AEC6CF', '#FDFD96', '#B39EB5', '#FF6961'];
+            const shapes = ['★', '✦', '●'];
+
+            for (let i = 0; i < 8; i++) {
+                const k = document.createElement('div');
+                k.className = 'konpeito';
+                k.textContent = shapes[Math.floor(Math.random() * shapes.length)];
+                k.style.color = colors[Math.floor(Math.random() * colors.length)];
+                k.style.left = x + 'px';
+                k.style.top = y + 'px';
+
+                const angle = Math.random() * Math.PI * 2;
+                const velocity = Math.random() * 100 + 50;
+                k.style.setProperty('--dx', Math.cos(angle) * velocity + 'px');
+                k.style.setProperty('--dy', Math.sin(angle) * velocity + 100 + 'px');
+
+                document.body.appendChild(k);
+                setTimeout(() => k.remove(), 1000);
+            }
+        }
+
+        function spawnSoot(x, y) {
+            const soot = document.createElement('div');
+            soot.classList.add('soot-sprite');
+            const size = Math.random() * 10 + 5 + 'px';
+            soot.style.width = size;
+            soot.style.height = size;
+            soot.style.left = x + 'px';
+            soot.style.top = y + 'px';
+            const mx = (Math.random() - 0.5) * 100 + 'px';
+            const my = (Math.random() - 0.5) * 100 + 'px';
+            soot.style.setProperty('--mx', mx);
+            soot.style.setProperty('--my', my);
+            document.body.appendChild(soot);
+            setTimeout(() => soot.remove(), 1000);
+        }
+
+        // Jelly effect
+        document.querySelectorAll('a, button').forEach(el => {
+            el.addEventListener('mousedown', () => { el.style.transform = "scale(0.9)"; });
+            el.addEventListener('mouseup', () => {
+                el.style.transform = "scale(1.1)";
+                setTimeout(() => el.style.transform = "", 150);
+            });
+        });
+
+        // Time Manager
+        function checkTime() {
+            const hour = new Date().getHours();
+            const root = document.querySelector(':root');
+
+            // Day: 6-16, Sunset: 16-19, Night: 19-6
+            if (hour >= 6 && hour < 16) {
+                // Day
+                root.style.setProperty('--bg-color', '#FDFCF6');
+                root.style.setProperty('--overlay-color', 'rgba(0,0,0,0)');
+                root.style.setProperty('--lantern-opacity', '0');
+                setInterval(spawnDust, 500); // Dust only in day
+            } else if (hour >= 16 && hour < 19) {
+                // Sunset
+                root.style.setProperty('--bg-color', '#FFF3E0');
+                root.style.setProperty('--overlay-color', 'rgba(255, 100, 0, 0.1)');
+                root.style.setProperty('--lantern-opacity', '0.2');
+                setInterval(spawnDust, 800);
+            } else {
+                // Night
+                root.style.setProperty('--bg-color', '#1a1c29'); // Dark Ghibli Night Blue
+                root.style.setProperty('--text-color', '#E6D5B8');
+                root.style.setProperty('--overlay-color', 'rgba(0, 10, 30, 0.4)');
+                root.style.setProperty('--lantern-opacity', '1');
+                setInterval(spawnFirefly, 1000); // Fireflies at night
+            }
+        }
+
+        checkTime();
+
+        function spawnLeaf() {
+            const leaf = document.createElement('div');
+            leaf.classList.add('leaf');
+            leaf.style.left = Math.random() * 50 + 'vw';
+            leaf.style.animationDuration = Math.random() * 5 + 5 + 's';
+            const colors = ['rgba(74, 103, 65, 0.5)', 'rgba(139, 94, 60, 0.5)', 'rgba(230, 168, 99, 0.5)'];
+            leaf.style.background = colors[Math.floor(Math.random() * colors.length)];
+            document.body.appendChild(leaf);
+            setTimeout(() => leaf.remove(), 10000);
+        }
+        setInterval(spawnLeaf, 3000);
+
+        function spawnDust() {
+            const h = new Date().getHours();
+            if (h >= 19 || h < 6) return; // Not at night
+            const dust = document.createElement('div');
+            dust.classList.add('dust-mote');
+            const size = Math.random() * 4 + 1 + 'px';
+            dust.style.width = size;
+            dust.style.height = size;
+            dust.style.left = Math.random() * 100 + 'vw';
+            dust.style.top = Math.random() * 100 + 'vh';
+            dust.style.animationDuration = Math.random() * 10 + 5 + 's';
+            document.body.appendChild(dust);
+            setTimeout(() => dust.remove(), 15000);
+        }
+
+        function spawnFirefly() {
+            const h = new Date().getHours();
+            if (h >= 6 && h < 19) return; // Only at night
+            const f = document.createElement('div');
+            f.classList.add('firefly');
+            f.style.left = Math.random() * 100 + 'vw';
+            f.style.top = Math.random() * 100 + 'vh';
+            const fx = (Math.random() - 0.5) * 200 + 'px';
+            const fy = (Math.random() - 0.5) * 200 + 'px';
+            f.style.setProperty('--fx', fx);
+            f.style.setProperty('--fy', fy);
+            document.body.appendChild(f);
+            setTimeout(() => f.remove(), 5000);
+        }
+    </script>
+
+    <!-- Ghibli Soot Sprite Logic -->
+    <script>
+        document.addEventListener('mousemove', (e) => {
+            const x = e.clientX;
+            const y = e.clientY;
+
+            // Move main cursor
+            cursor.style.left = `${x}px`;
+            cursor.style.top = `${y}px`;
+
+            // Randomly spawn soot sprites
+            if (Math.random() < 0.05) {
+                spawnSoot(x, y);
+            }
+        });
+
+        document.addEventListener('click', (e) => {
+            spawnKonpeito(e.clientX, e.clientY);
+        });
+
+        // Scroll Cat Logic
+        window.addEventListener('scroll', () => {
+            const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrollPercent = (scrollTop / scrollHeight) * 100;
+            document.getElementById('scroll-cat').style.width = scrollPercent + '%';
+        });
+
+        function spawnKonpeito(x, y) {
+            const colors = ['#FFD1DC', '#AEC6CF', '#FDFD96', '#B39EB5', '#FF6961'];
+            const shapes = ['★', '✦', '●'];
+
+            for (let i = 0; i < 8; i++) {
+                const k = document.createElement('div');
+                k.className = 'konpeito';
+                k.textContent = shapes[Math.floor(Math.random() * shapes.length)];
+                k.style.color = colors[Math.floor(Math.random() * colors.length)];
+                k.style.left = x + 'px';
+                k.style.top = y + 'px';
+
+                const angle = Math.random() * Math.PI * 2;
+                const velocity = Math.random() * 100 + 50;
+                k.style.setProperty('--dx', Math.cos(angle) * velocity + 'px');
+                k.style.setProperty('--dy', Math.sin(angle) * velocity + 100 + 'px'); // +100 for gravity feel
+
+                document.body.appendChild(k);
+                setTimeout(() => k.remove(), 1000);
+            }
+        }
+
+        function spawnSoot(x, y) {
+            const soot = document.createElement('div');
+            soot.classList.add('soot-sprite');
+
+            // Random size and offset
+            const size = Math.random() * 10 + 5 + 'px';
+            soot.style.width = size;
+            soot.style.height = size;
+            soot.style.left = x + 'px';
+            soot.style.top = y + 'px';
+
+            // Random direction
+            const mx = (Math.random() - 0.5) * 100 + 'px';
+            const my = (Math.random() - 0.5) * 100 + 'px';
+            soot.style.setProperty('--mx', mx);
+            soot.style.setProperty('--my', my);
+
+            document.body.appendChild(soot);
+
+            // Cleanup
+            setTimeout(() => {
+                soot.remove();
+            }, 1000);
+        }
+
+        // Jelly effect on click for links
+        document.querySelectorAll('a, button').forEach(el => {
+            el.addEventListener('mousedown', () => {
+                el.style.transform = "scale(0.9)";
+            });
+            el.addEventListener('mouseup', () => {
+                el.style.transform = "scale(1.1)";
+                setTimeout(() => el.style.transform = "", 150);
+            });
+        });
+        // Initial Spawns
+        setInterval(spawnLeaf, 3000);
+        setInterval(spawnDust, 500);
+
+        function spawnLeaf() {
+            const leaf = document.createElement('div');
+            leaf.classList.add('leaf');
+            leaf.style.left = Math.random() * 50 + 'vw'; // Start from left half
+            leaf.style.animationDuration = Math.random() * 5 + 5 + 's'; // 5-10s
+
+            // Random color variation (Green, Brown, Yellow)
+            const colors = ['rgba(74, 103, 65, 0.5)', 'rgba(139, 94, 60, 0.5)', 'rgba(230, 168, 99, 0.5)'];
+            leaf.style.background = colors[Math.floor(Math.random() * colors.length)];
+
+            document.body.appendChild(leaf);
+            setTimeout(() => leaf.remove(), 10000);
+        }
+
+        function spawnDust() {
+            const dust = document.createElement('div');
+            dust.classList.add('dust-mote');
+            const size = Math.random() * 4 + 1 + 'px';
+            dust.style.width = size;
+            dust.style.height = size;
+            dust.style.left = Math.random() * 100 + 'vw';
+            dust.style.top = Math.random() * 100 + 'vh';
+            dust.style.animationDuration = Math.random() * 10 + 5 + 's';
+
+            document.body.appendChild(dust);
+            setTimeout(() => dust.remove(), 15000);
+        }
+    </script>
+</body>
+
+</html>
