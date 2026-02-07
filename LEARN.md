@@ -1,4 +1,4 @@
-# 🎓 Learning Guide: Baking Shota (Cat-Sweets)
+# 🎓 Learning Guide: luv1ina (LINA)
 
 This project is a delightful example of how to make a website feel "alive" and "handcrafted" using code. It prioritizes **Micro-Interactions** and **Atmosphere** over complex frameworks.
 
@@ -76,4 +76,5 @@ A simple progress bar, but cat-themed.
 2.  **Sound Effects**: Add a soft "pop" sound when clicking to spawn Konpeito (using the Web Audio API skills from the Timer app!).
 3.  **Seasonal Changes**: Use the `Date()` object to detect the month. If it's December, change the falling leaves to Snowflakes ❄️.
 
-Happy Baking! 🥞
+Ty for reading !!
+
